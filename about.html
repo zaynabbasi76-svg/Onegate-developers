@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | OneGate Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --primary-blue: #1B2668; --accent-gold: #E08E2B; --dark-charcoal: #2B2D30; --light-bg: #F8F9FA; --white: #FFFFFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--light-bg); color: var(--dark-charcoal); }
+        
+        nav { position: fixed; top: 0; width: 100%; background: var(--white); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); z-index: 1000; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
+        .logo span { color: var(--accent-gold); }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { text-decoration: none; color: var(--dark-charcoal); font-weight: 600; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        
+        .header-banner { margin-top: 60px; background: var(--primary-blue); color: var(--white); padding: 60px 8%; text-align: center; }
+        .header-banner h1 { font-size: 2.5rem; }
+        .header-banner h1 span { color: var(--accent-gold); }
+        
+        .content-section { padding: 80px 8%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .content-text h2 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 20px; }
+        .content-text p { line-height: 1.8; color: #555; margin-bottom: 15px; }
+        .content-img img { width: 100%; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        footer { background: var(--dark-charcoal); color: var(--white); text-align: center; padding: 25px; }
+    </style>
+</head>
+<body>
+ <nav>
+    <a href="index.html" class="logo">ONEGATE <span>DEVELOPERS</span></a>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+    <div class="header-banner">
+        <h1>About <span>OneGate Developers</span></h1>
+    </div>
+
+    <section class="content-section">
+        <div class="content-text" data-aos="fade-right">
+            <h2>Building Excellence & Value</h2>
+            <p>OneGate Developers is a client-centered real estate development and construction firm committed to shaping superior living and commercial environments.</p>
+            <p>We combine architectural ingenuity, modern engineering standards, and high-quality materials to deliver real estate projects that stand the test of time.</p>
+        </div>
+        <div class="content-img" data-aos="fade-left">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Building Design">
+        </div>
+    </section>
+
+    <footer class="footer-contact-block" style="background: #1B2668; color: #FFF; padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid #E08E2B;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
+        <div>
+            <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
+            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.6;">Constructing Horizons, Opening Doors to Exceptional Real Estate & Architecture.</p>
+        </div>
+        <div>
+            <h4 style="color: #E08E2B; margin-bottom: 15px;">Contact Info</h4>
+            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-phone" style="color: #E08E2B; margin-right: 8px;"></i> 051-8911378</p>
+            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-envelope" style="color: #E08E2B; margin-right: 8px;"></i> onegateinfo@gmail.com</p>
+            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-location-dot" style="color: #E08E2B; margin-right: 8px;"></i> Office 304, 3rd Floor, Al Noor Plaza, 6th Road, Rawalpindi</p>
+        </div>
+        <div>
+            <h4 style="color: #E08E2B; margin-bottom: 15px;">Quick Links</h4>
+            <p><a href="index.html" style="color: #DDD; text-decoration: none;">Home</a></p>
+            <p><a href="about.html" style="color: #DDD; text-decoration: none;">About Us</a></p>
+            <p><a href="projects.html" style="color: #DDD; text-decoration: none;">Our Projects</a></p>
+            <p><a href="contact.html" style="color: #DDD; text-decoration: none;">Contact Us</a></p>
+        </div>
+    </div>
+    <div style="text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #AAA;">
+        <p>&copy; 2026 OneGate Developers. All Rights Reserved.</p>
+    </div>
+</footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
+</html>
