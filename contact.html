@@ -79,13 +79,79 @@
 
         <div class="contact-box" data-aos="fade-left">
             <h3>Send Us a Message</h3>
-            <form onsubmit="alert('Message Sent!'); return false;">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <textarea rows="4" placeholder="Your Inquiry" required></textarea>
-                <button type="submit" class="btn-gold">Send Inquiry</button>
-            </form>
+           <div class="contact-box" data-aos="fade-left">
+    <h3>Send Us a Message</h3>
+    
+    <!-- Updated Formspree Action -->
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT_HERE" method="POST" id="contactForm">
+        <!-- Redirect after successful submission (Optional) -->
+        <input type="hidden" name="_subject" value="New Inquiry - OneGate Developers Website">
+        
+        <input type="text" name="name" placeholder="Your Full Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+        <input type="tel" name="phone" placeholder="Your Phone Number" required>
+        
+        <select name="service_interest" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; outline: none; margin-bottom: 5px; background: #fff;" required>
+            <option value="" disabled selected>Select Service of Interest</option>
+            <option value="Commercial Plazas">Commercial Plazas</option>
+            <option value="Residential Developments">Residential Developments</option>
+            <option value="Real Estate Marketing">Real Estate Marketing</option>
+            <option value="General Inquiry">General Inquiry</option>
+        </select>
+
+        <textarea name="message" rows="4" placeholder="Write your project details or inquiry..." required></textarea>
+        
+        <button type="submit" class="btn-gold" id="submitBtn">Send Message</button>
+        <p id="formStatus" style="margin-top: 15px; font-weight: 600; text-align: center;"></p>
+    </form>
+</div>
+
+<!-- Inline JavaScript for AJAX Form Handling without Page Reload -->
+<script>
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    const btn = document.getElementById("submitBtn");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        
+        btn.innerText = "Sending...";
+        btn.disabled = true;
+
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                status.style.color = "#28a745";
+                status.innerHTML = "Thank you! Your inquiry has been sent successfully.";
+                form.reset();
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        status.style.color = "#dc3545";
+                        status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        status.style.color = "#dc3545";
+                        status.innerHTML = "Oops! There was a problem submitting your form.";
+                    }
+                })
+            }
+        }).catch(error => {
+            status.style.color = "#dc3545";
+            status.innerHTML = "Oops! Network error occurred while submitting.";
+        }).finally(() => {
+            btn.innerText = "Send Message";
+            btn.disabled = false;
+        });
+    }
+    
+    form.addEventListener("submit", handleSubmit);
+</script>
         </div>
     </section>
 
