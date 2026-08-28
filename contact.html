@@ -10,43 +10,59 @@
     <style>
         :root { --primary-blue: #1B2668; --accent-gold: #E08E2B; --dark-charcoal: #2B2D30; --light-bg: #F8F9FA; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--light-bg); color: var(--dark-charcoal); }
         
-        nav { position: fixed; top: 0; width: 100%; background: var(--white); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); z-index: 1000; }
+        body { position: relative; background: #0d1230; color: var(--dark-charcoal); min-height: 100vh; }
+
+        .page-bg-video-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; }
+        .page-bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; pointer-events: none; }
+        .page-bg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50)); z-index: -1; pointer-events: none; }
+
+        nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 1000; }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
         .logo span { color: var(--accent-gold); }
         nav ul { display: flex; list-style: none; gap: 25px; }
         nav a { text-decoration: none; color: var(--dark-charcoal); font-weight: 600; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--accent-gold); }
-        
-        .header-banner { margin-top: 60px; background: var(--primary-blue); color: var(--white); padding: 60px 8%; text-align: center; }
-        .header-banner h1 { font-size: 2.5rem; }
+
+        .header-banner { margin-top: 60px; background: rgba(27, 38, 104, 0.65); backdrop-filter: blur(5px); color: var(--white); padding: 60px 8%; text-align: center; }
+        .header-banner h1 { font-size: 2.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
         .header-banner h1 span { color: var(--accent-gold); }
-        
-        .contact-section { padding: 80px 8%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .contact-box { background: var(--white); padding: 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .contact-box h3 { color: var(--primary-blue); margin-bottom: 20px; font-size: 1.5rem; }
+
+        .contact-section { padding: 80px 8%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .contact-box { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(8px); padding: 35px; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.25); border-top: 4px solid var(--accent-gold); }
+        .contact-box h3 { color: var(--primary-blue); margin-bottom: 25px; font-size: 1.6rem; }
         .info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
-        .info-item i { font-size: 1.2rem; background: var(--accent-gold); color: var(--white); padding: 12px; border-radius: 50%; }
+        .info-item i { font-size: 1.2rem; background: var(--accent-gold); color: var(--white); padding: 12px; border-radius: 50%; min-width: 42px; text-align: center; }
         
         form { display: flex; flex-direction: column; gap: 15px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; outline: none; }
-        .btn-gold { background: var(--accent-gold); color: var(--white); padding: 14px; border-radius: 5px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-gold:hover { background: #c77b21; }
-        
-        footer { background: var(--dark-charcoal); color: var(--white); text-align: center; padding: 25px; }
+        input, textarea, select { width: 100%; padding: 12px 15px; border: 1px solid #CCC; border-radius: 5px; outline: none; font-size: 0.95rem; background: rgba(255, 255, 255, 0.95); color: var(--dark-charcoal); }
+
+        .btn-gold { background: var(--accent-gold); color: var(--white); padding: 14px; border-radius: 5px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn-gold:hover { background: #c77b21; transform: translateY(-2px); }
+
+        footer { background: rgba(27, 38, 104, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--white); padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid var(--accent-gold); }
     </style>
 </head>
 <body>
+
+    <div class="page-bg-video-container">
+        <video id="bgVideo" class="page-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80">
+            <source src="islamabad-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    <div class="page-bg-overlay"></div>
+
     <nav>
-    <a href="index.html" class="logo">ONEGATE <span> DEVELOPERS</span></a>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-</nav>
+        <a href="index.html" class="logo">ONEGATE <span> DEVELOPERS</span></a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+        </ul>
+    </nav>
+
     <div class="header-banner">
         <h1>Contact <span>OneGate Developers</span></h1>
     </div>
@@ -57,21 +73,21 @@
             <div class="info-item">
                 <i class="fa-solid fa-location-dot"></i>
                 <div>
-                    <strong>Office Location</strong>
+                    <strong style="color: var(--primary-blue);">Office Location</strong>
                     <p>Office no 304, 3rd floor Al Noor Plaza, 6th Road Rawalpindi.</p>
                 </div>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-phone"></i>
                 <div>
-                    <strong>Phone Number</strong>
+                    <strong style="color: var(--primary-blue);">Phone Number</strong>
                     <p>051-8911378</p>
                 </div>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-envelope"></i>
                 <div>
-                    <strong>Email Address</strong>
+                    <strong style="color: var(--primary-blue);">Email Address</strong>
                     <p>onegateinfo@gmail.com</p>
                 </div>
             </div>
@@ -79,106 +95,93 @@
 
         <div class="contact-box" data-aos="fade-left">
             <h3>Send Us a Message</h3>
-    
-    <!-- Updated Formspree Action -->
-    <form action="https://formspree.io/f/mljerwbk" method="POST" id="contactForm">
-        <!-- Redirect after successful submission (Optional) -->
-        <input type="hidden" name="_subject" value="New Inquiry - OneGate Developers Website">
-        
-        <input type="text" name="name" placeholder="Your Full Name" required>
-        <input type="email" name="email" placeholder="Your Email Address" required>
-        <input type="tel" name="phone" placeholder="Your Phone Number" required>
-        
-        <select name="service_interest" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; outline: none; margin-bottom: 5px; background: #fff;" required>
-            <option value="" disabled selected>Select Service of Interest</option>
-            <option value="Commercial Plazas">Commercial Plazas</option>
-            <option value="Residential Developments">Residential Developments</option>
-            <option value="Real Estate Marketing">Real Estate Marketing</option>
-            <option value="General Inquiry">General Inquiry</option>
-        </select>
+            
+            <form action="https://formspree.io/f/mljerwbk" method="POST" id="contactForm">
+                <input type="hidden" name="_subject" value="New Inquiry - OneGate Developers Website">
+                <input type="text" name="name" placeholder="Your Full Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                
+                <select name="service_interest" required>
+                    <option value="" disabled selected>Select Service of Interest</option>
+                    <option value="Commercial Plazas">Commercial Plazas</option>
+                    <option value="Residential Developments">Residential Developments</option>
+                    <option value="Real Estate Marketing">Real Estate Marketing</option>
+                    <option value="General Inquiry">General Inquiry</option>
+                </select>
 
-        <textarea name="message" rows="4" placeholder="Write your project details or inquiry..." required></textarea>
-        
-        <button type="submit" class="btn-gold" id="submitBtn">Send Message</button>
-        <p id="formStatus" style="margin-top: 15px; font-weight: 600; text-align: center;"></p>
-    </form>
-</div>
-
-<!-- Inline JavaScript for AJAX Form Handling without Page Reload -->
-<script>
-    const form = document.getElementById("contactForm");
-    const status = document.getElementById("formStatus");
-    const btn = document.getElementById("submitBtn");
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const data = new FormData(event.target);
-        
-        btn.innerText = "Sending...";
-        btn.disabled = true;
-
-        fetch(event.target.action, {
-            method: form.method,
-            body: data,
-            headers: {
-                'Accept': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                status.style.color = "#28a745";
-                status.innerHTML = "Thank you! Your inquiry has been sent successfully.";
-                form.reset();
-            } else {
-                response.json().then(data => {
-                    if (Object.hasOwn(data, 'errors')) {
-                        status.style.color = "#dc3545";
-                        status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                    } else {
-                        status.style.color = "#dc3545";
-                        status.innerHTML = "Oops! There was a problem submitting your form.";
-                    }
-                })
-            }
-        }).catch(error => {
-            status.style.color = "#dc3545";
-            status.innerHTML = "Oops! Network error occurred while submitting.";
-        }).finally(() => {
-            btn.innerText = "Send Message";
-            btn.disabled = false;
-        });
-    }
-    
-    form.addEventListener("submit", handleSubmit);
-</script>
+                <textarea name="message" rows="4" placeholder="Write your project details or inquiry..." required></textarea>
+                <button type="submit" class="btn-gold" id="submitBtn">Send Message</button>
+                <p id="formStatus" style="margin-top: 15px; font-weight: 600; text-align: center;"></p>
+            </form>
         </div>
     </section>
 
-   <footer class="footer-contact-block" style="background: #1B2668; color: #FFF; padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid #E08E2B;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.6;">Constructing Horizons, Opening Doors to Exceptional Real Estate & Architecture.</p>
+    <footer>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.6;">Constructing Horizons, Opening Doors to Exceptional Real Estate & Architecture.</p>
+            </div>
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">Contact Info</h4>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-phone" style="color: #E08E2B; margin-right: 8px;"></i> 051-8911378</p>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-envelope" style="color: #E08E2B; margin-right: 8px;"></i> onegateinfo@gmail.com</p>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-location-dot" style="color: #E08E2B; margin-right: 8px;"></i> Office 304, 3rd Floor, Al Noor Plaza, 6th Road, Rawalpindi</p>
+            </div>
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">Quick Links</h4>
+                <p><a href="index.html" style="color: #DDD; text-decoration: none;">Home</a></p>
+                <p><a href="about.html" style="color: #DDD; text-decoration: none;">About Us</a></p>
+                <p><a href="projects.html" style="color: #DDD; text-decoration: none;">Our Projects</a></p>
+                <p><a href="contact.html" style="color: #DDD; text-decoration: none;">Contact Us</a></p>
+            </div>
         </div>
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">Contact Info</h4>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-phone" style="color: #E08E2B; margin-right: 8px;"></i> 051-8911378</p>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-envelope" style="color: #E08E2B; margin-right: 8px;"></i> onegateinfo@gmail.com</p>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-location-dot" style="color: #E08E2B; margin-right: 8px;"></i> Office 304, 3rd Floor, Al Noor Plaza, 6th Road, Rawalpindi</p>
+        <div style="text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #AAA;">
+            <p>&copy; 2026 OneGate Developers. All Rights Reserved.</p>
         </div>
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">Quick Links</h4>
-            <p><a href="index.html" style="color: #DDD; text-decoration: none;">Home</a></p>
-            <p><a href="about.html" style="color: #DDD; text-decoration: none;">About Us</a></p>
-            <p><a href="projects.html" style="color: #DDD; text-decoration: none;">Our Projects</a></p>
-            <p><a href="contact.html" style="color: #DDD; text-decoration: none;">Contact Us</a></p>
-        </div>
-    </div>
-    <div style="text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #AAA;">
-        <p>&copy; 2026 OneGate Developers. All Rights Reserved.</p>
-    </div>
-</footer>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true });</script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        window.addEventListener('load', function() {
+            var v = document.getElementById('bgVideo');
+            if(v) { v.muted = true; v.play().catch(function(e){}); }
+        });
+
+        const form = document.getElementById("contactForm");
+        const status = document.getElementById("formStatus");
+        const btn = document.getElementById("submitBtn");
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.style.color = "#28a745";
+                    status.innerHTML = "Thank you! Your inquiry has been sent successfully.";
+                    form.reset();
+                } else {
+                    status.style.color = "#dc3545";
+                    status.innerHTML = "Oops! There was a problem submitting your form.";
+                }
+            }).catch(error => {
+                status.style.color = "#dc3545";
+                status.innerHTML = "Oops! Network error occurred while submitting.";
+            }).finally(() => {
+                btn.innerText = "Send Message";
+                btn.disabled = false;
+            });
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
 </body>
 </html>
