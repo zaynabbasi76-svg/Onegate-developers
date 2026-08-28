@@ -11,72 +11,19 @@
         :root { --primary-blue: #1B2668; --accent-gold: #E08E2B; --dark-charcoal: #2B2D30; --light-bg: #F8F9FA; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         
-        body { 
-            position: relative; 
-            background: #0d1230; 
-            color: var(--dark-charcoal); 
-            min-height: 100vh;
-        }
+        body { position: relative; background: #0d1230; color: var(--dark-charcoal); min-height: 100vh; }
 
-        /* Fixed Video Container Spanning Whole Page */
-        .page-bg-video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-        }
-
-        /* Video Scaled Edge-to-Edge (Fills whole frame) */
-        .page-bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover; /* Fills screen completely */
-            pointer-events: none;
-        }
-
-        /* 50% Overlay Opacity for 50% Video Transparency */
-        .page-bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50));
-            z-index: -1;
-            pointer-events: none;
-        }
+        .page-bg-video-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; }
+        .page-bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; pointer-events: none; }
+        .page-bg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50)); z-index: -1; pointer-events: none; }
         
-        /* Translucent Navigation Header */
-        nav { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 8%; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            z-index: 1000; 
-        }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 1000; }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
         .logo span { color: var(--accent-gold); }
         nav ul { display: flex; list-style: none; gap: 25px; }
         nav a { text-decoration: none; color: var(--dark-charcoal); font-weight: 600; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--accent-gold); }
         
-        /* Hero Section */
         .hero { min-height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); margin-top: 60px; padding: 0 5%; }
         .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); }
         .hero h1 span { color: var(--accent-gold); }
@@ -85,72 +32,31 @@
         .btn-gold { background: var(--accent-gold); color: var(--white); padding: 14px 32px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
         .btn-gold:hover { background: #c77b21; transform: translateY(-3px); }
         
-        /* Section & Grid Styling */
         .section { padding: 80px 8%; }
-        
-        /* Grid setup to ensure equal heights for all cards */
-        .services-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-            margin-top: 40px; 
-            align-items: stretch; /* Forces equal height columns */
-        }
-        
-        .service-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: flex; /* Ensures link wrapper stretches fully */
-            height: 100%;
-        }
-
-        .service-card { 
-            background: rgba(255, 255, 255, 0.90); 
-            backdrop-filter: blur(8px); 
-            padding: 40px 30px; 
-            border-radius: 8px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2); 
-            border-top: 4px solid var(--primary-blue); 
-            transition: 0.3s; 
-            text-align: center;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Centers content evenly inside */
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; align-items: stretch; }
+        .service-card-link { text-decoration: none; color: inherit; display: flex; height: 100%; }
+        .service-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(8px); padding: 40px 30px; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border-top: 4px solid var(--primary-blue); transition: 0.3s; text-align: center; width: 100%; display: flex; flex-direction: column; justify-content: center; }
         .service-card:hover { transform: translateY(-8px); border-top: 4px solid var(--accent-gold); background: rgba(255, 255, 255, 0.98); }
         .service-card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 20px; }
         .service-card h3 { color: var(--primary-blue); margin-bottom: 15px; }
-        .service-card p { color: var(--dark-charcoal); }
         
-        /* Translucent Footer */
-        footer { 
-            background: rgba(27, 38, 104, 0.75); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--white); 
-            text-align: center; 
-            padding: 50px 8% 30px; 
-            margin-top: 60px; 
-            border-top: 4px solid var(--accent-gold); 
-        }
+        footer { background: rgba(27, 38, 104, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--white); padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid var(--accent-gold); }
     </style>
 </head>
 <body>
 
-    <!-- Full Page Video Background -->
     <div class="page-bg-video-container">
         <video id="bgVideo" class="page-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80">
-    <source src="islamabad-video.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
-</video>
+            <source src="islamabad-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
     </div>
     <div class="page-bg-overlay"></div>
 
     <nav>
         <a href="index.html" class="logo">ONEGATE <span>DEVELOPERS</span></a>
         <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="contact.html">Contact Us</a></li>
@@ -194,7 +100,7 @@
         </div>
     </section>
 
-    <footer class="footer-contact-block">
+    <footer>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: left;">
             <div>
                 <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
@@ -222,13 +128,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
-
         window.addEventListener('load', function() {
             var v = document.getElementById('bgVideo');
-            if(v) {
-                v.muted = true;
-                v.play().catch(function(e) { console.log("Autoplay blocked or file unreadable:", e); });
-            }
+            if(v) { v.muted = true; v.play().catch(function(e){}); }
         });
     </script>
 </body>
