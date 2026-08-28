@@ -11,113 +11,30 @@
         :root { --primary-blue: #1B2668; --accent-gold: #E08E2B; --dark-charcoal: #2B2D30; --light-bg: #F8F9FA; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         
-        body { 
-            position: relative; 
-            background: #0d1230; 
-            color: var(--dark-charcoal); 
-            min-height: 100vh;
-        }
+        body { position: relative; background: #0d1230; color: var(--dark-charcoal); min-height: 100vh; }
 
-        /* Fixed Video Container Spanning Whole Page */
-        .page-bg-video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-        }
+        .page-bg-video-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; }
+        .page-bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; pointer-events: none; }
+        .page-bg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50)); z-index: -1; pointer-events: none; }
 
-        /* Edge-to-Edge Video Fitting */
-        .page-bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            pointer-events: none;
-        }
-
-        /* 50% Overlay Opacity for Video Transparency */
-        .page-bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50));
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Translucent Navigation */
-        nav { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 8%; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            z-index: 1000; 
-        }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 1000; }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
         .logo span { color: var(--accent-gold); }
         nav ul { display: flex; list-style: none; gap: 25px; }
         nav a { text-decoration: none; color: var(--dark-charcoal); font-weight: 600; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--accent-gold); }
         
-        /* Banner Section */
-        .header-banner { 
-            margin-top: 60px; 
-            background: rgba(27, 38, 104, 0.65); 
-            backdrop-filter: blur(5px);
-            color: var(--white); 
-            padding: 60px 8%; 
-            text-align: center; 
-        }
+        .header-banner { margin-top: 60px; background: rgba(27, 38, 104, 0.65); backdrop-filter: blur(5px); color: var(--white); padding: 60px 8%; text-align: center; }
         .header-banner h1 { font-size: 2.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
         .header-banner h1 span { color: var(--accent-gold); }
         
-        /* Main Content Glass Card */
-        .content-section { 
-            padding: 80px 8%; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 50px; 
-            align-items: center; 
-        }
-        .content-text {
-            background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(8px);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            border-left: 4px solid var(--accent-gold);
-        }
+        .content-section { padding: 80px 8%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .content-text { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(8px); padding: 40px; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border-left: 4px solid var(--accent-gold); }
         .content-text h2 { color: var(--primary-blue); font-size: 2rem; margin-bottom: 20px; }
         .content-text p { line-height: 1.8; color: var(--dark-charcoal); margin-bottom: 15px; }
         .content-img img { width: 100%; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.25); }
         
-        /* Translucent Footer */
-        footer { 
-            background: rgba(27, 38, 104, 0.75); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--white); 
-            padding: 50px 8% 30px; 
-            margin-top: 60px; 
-            border-top: 4px solid var(--accent-gold); 
-        }
+        footer { background: rgba(27, 38, 104, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--white); padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid var(--accent-gold); }
     </style>
 </head>
 <body>
@@ -125,7 +42,6 @@
     <div class="page-bg-video-container">
         <video id="bgVideo" class="page-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80">
             <source src="islamabad-video.mp4" type="video/mp4">
-            <source src="file:///D:/Zain%20Ul%20Abidin/islamabad%20video.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
     </div>
@@ -156,7 +72,7 @@
         </div>
     </section>
 
-    <footer class="footer-contact-block">
+    <footer>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
             <div>
                 <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
@@ -184,13 +100,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
-
         window.addEventListener('load', function() {
             var v = document.getElementById('bgVideo');
-            if(v) {
-                v.muted = true;
-                v.play().catch(function(e) { console.log("Autoplay blocked or file unreadable:", e); });
-            }
+            if(v) { v.muted = true; v.play().catch(function(e){}); }
         });
     </script>
 </body>
