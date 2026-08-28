@@ -10,10 +10,66 @@
     <style>
         :root { --primary-blue: #1B2668; --accent-gold: #E08E2B; --dark-charcoal: #2B2D30; --light-bg: #F8F9FA; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--light-bg); color: var(--dark-charcoal); }
         
-        /* Navigation */
-        nav { position: fixed; top: 0; width: 100%; background: var(--white); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); z-index: 1000; }
+        body { 
+            position: relative; 
+            background: #0d1230; 
+            color: var(--dark-charcoal); 
+            min-height: 100vh;
+        }
+
+        /* Fixed Video Container Spanning Whole Page */
+        .page-bg-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        /* Video Scaled Edge-to-Edge (Fills whole frame) */
+        .page-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Fills screen completely */
+            pointer-events: none;
+        }
+
+        /* 50% Overlay Opacity for 50% Video Transparency */
+        .page-bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(27, 38, 104, 0.50), rgba(43, 45, 48, 0.50));
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Translucent Navigation Header */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 8%; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            z-index: 1000; 
+        }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; }
         .logo span { color: var(--accent-gold); }
         nav ul { display: flex; list-style: none; gap: 25px; }
@@ -21,35 +77,86 @@
         nav a:hover, nav a.active { color: var(--accent-gold); }
         
         /* Hero Section */
-        .hero { min-height: 85vh; background: linear-gradient(135deg, rgba(27, 38, 104, 0.9), rgba(43, 45, 48, 0.85)), url('https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); margin-top: 60px; padding: 0 5%; }
-        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; }
+        .hero { min-height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); margin-top: 60px; padding: 0 5%; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); }
         .hero h1 span { color: var(--accent-gold); }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); font-weight: 600; }
         
-        .btn-gold { background: var(--accent-gold); color: var(--white); padding: 14px 32px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; }
+        .btn-gold { background: var(--accent-gold); color: var(--white); padding: 14px 32px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
         .btn-gold:hover { background: #c77b21; transform: translateY(-3px); }
         
-        /* Core Services Quick Highlights */
+        /* Section & Grid Styling */
         .section { padding: 80px 8%; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .service-card { background: var(--white); padding: 40px 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-blue); transition: 0.3s; text-align: center; }
-        .service-card:hover { transform: translateY(-8px); border-top: 4px solid var(--accent-gold); }
+        
+        /* Grid setup to ensure equal heights for all cards */
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            margin-top: 40px; 
+            align-items: stretch; /* Forces equal height columns */
+        }
+        
+        .service-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex; /* Ensures link wrapper stretches fully */
+            height: 100%;
+        }
+
+        .service-card { 
+            background: rgba(255, 255, 255, 0.90); 
+            backdrop-filter: blur(8px); 
+            padding: 40px 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); 
+            border-top: 4px solid var(--primary-blue); 
+            transition: 0.3s; 
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers content evenly inside */
+        }
+        .service-card:hover { transform: translateY(-8px); border-top: 4px solid var(--accent-gold); background: rgba(255, 255, 255, 0.98); }
         .service-card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 20px; }
         .service-card h3 { color: var(--primary-blue); margin-bottom: 15px; }
+        .service-card p { color: var(--dark-charcoal); }
         
-        footer { background: var(--dark-charcoal); color: var(--white); text-align: center; padding: 25px; margin-top: 50px; }
+        /* Translucent Footer */
+        footer { 
+            background: rgba(27, 38, 104, 0.75); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--white); 
+            text-align: center; 
+            padding: 50px 8% 30px; 
+            margin-top: 60px; 
+            border-top: 4px solid var(--accent-gold); 
+        }
     </style>
 </head>
 <body>
+
+    <!-- Full Page Video Background -->
+    <div class="page-bg-video-container">
+        <video id="bgVideo" class="page-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80">
+            <source src="file:///D:/Zain%20Ul%20Abidin/islamabad%20video.mp4" type="video/mp4">
+            <source src="D:/Zain Ul Abidin/islamabad video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    <div class="page-bg-overlay"></div>
+
     <nav>
-    <a href="index.html" class="logo">ONEGATE <span> DEVELOPERS</span></a>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-</nav>
+        <a href="index.html" class="logo">ONEGATE <span>DEVELOPERS</span></a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
 
     <section class="hero">
         <div data-aos="fade-up">
@@ -60,64 +167,70 @@
     </section>
 
     <section class="section">
+        <h2 style="text-align: center; color: var(--white); font-size: 2.2rem; text-shadow: 0 4px 15px rgba(0,0,0,0.7);" data-aos="fade-up">What We Build</h2>
         <div class="services-grid">
-            <section class="section">
-    <h2 style="text-align: center; color: var(--primary-blue); font-size: 2.2rem;" data-aos="fade-up">What We Build</h2>
-    <div class="services-grid">
-        <a href="commercial-plazas.html" style="text-decoration: none; color: inherit;">
-            <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fa-solid fa-city"></i>
-                <h3>Commercial Plazas</h3>
-                <p>High-end modern commercial space construction built to structural perfection.</p>
-            </div>
-        </a>
+            <a href="commercial-plazas.html" class="service-card-link">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fa-solid fa-city"></i>
+                    <h3>Commercial Plazas</h3>
+                    <p>High-end modern commercial space construction built to structural perfection.</p>
+                </div>
+            </a>
 
-        <a href="residential-developments.html" style="text-decoration: none; color: inherit;">
-            <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fa-solid fa-house-chimney-crack"></i>
-                <h3>Residential Developments</h3>
-                <p>Turnkey luxury homes, apartment units, and modern housing solutions.</p>
-            </div>
-        </a>
+            <a href="residential-developments.html" class="service-card-link">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fa-solid fa-house-chimney-crack"></i>
+                    <h3>Residential Developments</h3>
+                    <p>Turnkey luxury homes, apartment units, and modern housing solutions.</p>
+                </div>
+            </a>
 
-        <a href="real-estate-marketing.html" style="text-decoration: none; color: inherit;">
-            <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                <i class="fa-solid fa-building-user"></i>
-                <h3>Real Estate Marketing</h3>
-                <p>Strategic property investments and commercial real estate development advice.</p>
-            </div>
-        </a>
-    </div>
-</section>
+            <a href="real-estate-marketing.html" class="service-card-link">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fa-solid fa-building-user"></i>
+                    <h3>Real Estate Marketing</h3>
+                    <p>Strategic property investments and commercial real estate development advice.</p>
+                </div>
+            </a>
         </div>
     </section>
 
-    <footer class="footer-contact-block" style="background: #1B2668; color: #FFF; padding: 50px 8% 30px; margin-top: 60px; border-top: 4px solid #E08E2B;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.6;">Constructing Horizons, Opening Doors to Exceptional Real Estate & Architecture.</p>
+    <footer class="footer-contact-block">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: left;">
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">ONEGATE DEVELOPERS</h4>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.6;">Constructing Horizons, Opening Doors to Exceptional Real Estate & Architecture.</p>
+            </div>
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">Contact Info</h4>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-phone" style="color: #E08E2B; margin-right: 8px;"></i> 051-8911378</p>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-envelope" style="color: #E08E2B; margin-right: 8px;"></i> onegateinfo@gmail.com</p>
+                <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-location-dot" style="color: #E08E2B; margin-right: 8px;"></i> Office 304, 3rd Floor, Al Noor Plaza, 6th Road, Rawalpindi</p>
+            </div>
+            <div>
+                <h4 style="color: #E08E2B; margin-bottom: 15px;">Quick Links</h4>
+                <p><a href="index.html" style="color: #DDD; text-decoration: none;">Home</a></p>
+                <p><a href="about.html" style="color: #DDD; text-decoration: none;">About Us</a></p>
+                <p><a href="projects.html" style="color: #DDD; text-decoration: none;">Our Projects</a></p>
+                <p><a href="contact.html" style="color: #DDD; text-decoration: none;">Contact Us</a></p>
+            </div>
         </div>
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">Contact Info</h4>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-phone" style="color: #E08E2B; margin-right: 8px;"></i> 051-8911378</p>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-envelope" style="color: #E08E2B; margin-right: 8px;"></i> onegateinfo@gmail.com</p>
-            <p style="color: #DDD; font-size: 0.95rem; line-height: 1.8;"><i class="fa-solid fa-location-dot" style="color: #E08E2B; margin-right: 8px;"></i> Office 304, 3rd Floor, Al Noor Plaza, 6th Road, Rawalpindi</p>
+        <div style="text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #AAA;">
+            <p>&copy; 2026 OneGate Developers. All Rights Reserved.</p>
         </div>
-        <div>
-            <h4 style="color: #E08E2B; margin-bottom: 15px;">Quick Links</h4>
-            <p><a href="index.html" style="color: #DDD; text-decoration: none;">Home</a></p>
-            <p><a href="about.html" style="color: #DDD; text-decoration: none;">About Us</a></p>
-            <p><a href="projects.html" style="color: #DDD; text-decoration: none;">Our Projects</a></p>
-            <p><a href="contact.html" style="color: #DDD; text-decoration: none;">Contact Us</a></p>
-        </div>
-    </div>
-    <div style="text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #AAA;">
-        <p>&copy; 2026 OneGate Developers. All Rights Reserved.</p>
-    </div>
-</footer>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true });</script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        window.addEventListener('load', function() {
+            var v = document.getElementById('bgVideo');
+            if(v) {
+                v.muted = true;
+                v.play().catch(function(e) { console.log("Autoplay blocked or file unreadable:", e); });
+            }
+        });
+    </script>
 </body>
 </html>
